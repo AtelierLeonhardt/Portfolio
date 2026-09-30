@@ -3,211 +3,283 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Architecture Portfolio</title>
+<title>Rene Leonhardt — Architecture</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Mono:wght@400&display=swap');
 
-:root {
-  --bg: #11110f;
-  --fg: #e8e6df;
-  --muted: #89877f;
-  --line: rgba(232,230,223,.18);
+:root{
+  --bg:#10100f;
+  --fg:#e9e7e1;
+  --muted:#85827a;
+  --line:rgba(233,231,225,.15);
+  --accent:#b88b72;
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin:0; min-height:100%; background:var(--bg); color:var(--fg);
-  font-family:Inter, sans-serif; overflow-x:hidden; cursor:crosshair;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font-family:Inter,Arial,sans-serif;
+  overflow-x:hidden;cursor:crosshair;
 }
+a{color:inherit;text-decoration:none}
 
-/* =========================================================
-   LOGO
-   ---------------------------------------------------------
-   Lege deine eigene Logo-Datei als "logo.svg" in den
-   assets-Ordner. Die Website verwendet sie automatisch
-   als grossen Hintergrund.
-   ========================================================= */
-.logo-background {
+/* =========================
+   LARGE CI MARK
+   ========================= */
+.ci-mark{
   position:fixed;
-  inset:0;
-  z-index:-1;
-  display:grid;
-  place-items:center;
+  z-index:0;
+  left:50%;
+  top:50%;
+  width:min(58vw,900px);
+  transform:translate(-50%,-50%);
+  opacity:.105;
   pointer-events:none;
-  opacity:.055;
+  filter:brightness(.75);
+  transition:transform .2s ease-out;
 }
-.logo-background img {
-  width:min(72vw, 1000px);
-  max-height:72vh;
-  object-fit:contain;
+.ci-mark img{
+  display:block;width:100%;height:auto;
 }
 
 /* HEADER */
-header {
-  position:fixed; inset:0 0 auto 0; z-index:20;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:22px 28px; mix-blend-mode:difference;
+header{
+  position:fixed;z-index:20;top:0;left:0;right:0;
+  padding:22px 28px;
+  display:flex;justify-content:space-between;align-items:center;
+  mix-blend-mode:difference;
 }
-.logo {
-  font-size:13px; letter-spacing:.08em; text-transform:uppercase;
+.brand{
+  font-size:12px;letter-spacing:.13em;text-transform:uppercase;
 }
-nav {
-  display:flex; gap:26px; font-size:11px;
-  text-transform:uppercase; letter-spacing:.12em;
+nav{
+  display:flex;gap:28px;
+  font:10px "Space Mono",monospace;
+  text-transform:uppercase;letter-spacing:.08em;
 }
-nav a { color:inherit; text-decoration:none; opacity:.75; }
-nav a:hover { opacity:1; }
+nav a{opacity:.65;transition:.2s}
+nav a:hover{opacity:1}
 
-/* INTRO */
-#intro {
-  min-height:100vh; display:grid; place-items:center; position:relative;
-  overflow:hidden;
+/* HOME */
+#home{
+  min-height:100vh;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:100px 28px 50px;
 }
-.intro-title {
-  position:relative; z-index:2; text-align:center; pointer-events:none;
-  transition:transform .15s ease-out;
+.hero{
+  position:relative;z-index:2;
+  margin:auto;
+  width:min(1100px,100%);
 }
-.intro-title h1 {
-  margin:0; font-size:clamp(52px,11vw,170px); font-weight:300;
-  letter-spacing:-.065em; line-height:.85;
+.kicker{
+  margin:0 0 28px 2px;
+  color:var(--muted);
+  font:10px "Space Mono",monospace;
+  letter-spacing:.14em;
+  text-transform:uppercase;
 }
-.intro-title p {
-  margin-top:30px; font:11px "Space Mono", monospace;
-  color:var(--muted); letter-spacing:.08em;
+h1{
+  margin:0;
+  font-weight:300;
+  font-size:clamp(65px,12vw,175px);
+  line-height:.78;
+  letter-spacing:-.075em;
 }
-.orbit {
-  position:absolute; width:48vw; height:48vw; max-width:650px; max-height:650px;
-  border:1px solid var(--line); border-radius:50%;
-  animation:spin 32s linear infinite;
-}
-.orbit:before, .orbit:after {
-  content:""; position:absolute; inset:12%;
-  border:1px solid var(--line); border-radius:50%;
-}
-.orbit:after { inset:35%; }
-@keyframes spin { to { transform:rotate(360deg); } }
-
-.coord {
-  position:absolute; left:28px; bottom:25px;
-  font:10px "Space Mono", monospace; color:var(--muted);
-}
-
-/* PROJECTS */
-#projects { padding:12vh 28px 20vh; }
-.section-head {
-  display:flex; justify-content:space-between; align-items:end;
-  border-bottom:1px solid var(--line); padding-bottom:14px; margin-bottom:55px;
-}
-.section-head span {
-  font:10px "Space Mono", monospace; color:var(--muted);
-}
-.section-head h2 {
-  font-size:13px; font-weight:400;
-  text-transform:uppercase; letter-spacing:.12em;
-}
-
-.project {
-  display:grid; grid-template-columns:90px 1fr 160px;
-  gap:24px; padding:25px 0; border-bottom:1px solid var(--line);
-  align-items:center; cursor:pointer;
-}
-.project-number {
-  font:11px "Space Mono", monospace; color:var(--muted);
-}
-.project-name {
-  font-size:clamp(28px,5vw,72px); font-weight:300;
-  letter-spacing:-.045em; transition:.35s;
-}
-.project:hover .project-name {
-  transform:translateX(16px);
-}
-.project-meta {
-  font:10px "Space Mono", monospace; line-height:1.8;
+.hero-sub{
+  margin:38px 0 0 5px;
+  font:10px "Space Mono",monospace;
+  letter-spacing:.1em;
   color:var(--muted);
 }
+.hero-rule{
+  position:absolute;
+  left:0;right:0;
+  bottom:34px;
+  height:1px;
+  background:var(--line);
+}
+.coordinates{
+  position:absolute;bottom:18px;left:28px;
+  color:var(--muted);
+  font:9px "Space Mono",monospace;
+}
+
+/* PROJECT INDEX */
+#projects{
+  position:relative;z-index:3;
+  padding:90px 28px 150px;
+  background:var(--bg);
+}
+.section-top{
+  display:flex;justify-content:space-between;
+  align-items:center;
+  border-top:1px solid var(--line);
+  padding-top:12px;
+  margin-bottom:42px;
+}
+.section-top span{
+  font:9px "Space Mono",monospace;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+.project{
+  position:relative;
+  display:grid;
+  grid-template-columns:65px minmax(0,1fr) 170px 90px;
+  align-items:center;
+  gap:20px;
+  min-height:105px;
+  border-bottom:1px solid var(--line);
+  cursor:pointer;
+}
+.project:first-of-type{border-top:1px solid var(--line)}
+.num,.meta,.year{
+  font:9px "Space Mono",monospace;
+  color:var(--muted);
+}
+.name{
+  font-size:clamp(25px,4vw,58px);
+  line-height:1;
+  font-weight:300;
+  letter-spacing:-.045em;
+  transform-origin:left center;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .35s;
+}
+.project:hover .name{
+  transform:translateX(18px);
+}
+.project:hover .num{
+  color:var(--fg);
+}
+.meta{text-transform:uppercase;line-height:1.6}
+.year{text-align:right}
+.project-arrow{
+  position:absolute;
+  right:0;
+  top:50%;
+  width:0;
+  height:1px;
+  background:var(--fg);
+  transition:width .35s;
+}
+.project:hover .project-arrow{width:28px}
 
 /* ABOUT */
-#about {
-  min-height:70vh; padding:15vh 28px;
-  display:grid; grid-template-columns:1fr 1fr;
+#about{
+  position:relative;z-index:3;
+  padding:150px 28px;
   border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:10vw;
 }
-.about-big {
-  font-size:clamp(36px,6vw,90px); line-height:.95;
-  letter-spacing:-.055em; font-weight:300;
+.about-title{
+  font-size:clamp(40px,6vw,88px);
+  line-height:.92;
+  letter-spacing:-.06em;
+  font-weight:300;
 }
-.about-text {
-  max-width:500px; margin-left:auto;
-  font-size:15px; line-height:1.65; color:#aaa89f;
+.about-copy{
+  max-width:470px;
+  color:#aaa79f;
+  font-size:14px;
+  line-height:1.7;
 }
-.about-text p { margin:0 0 30px; }
+.about-copy .label{
+  margin-top:45px;
+  margin-bottom:8px;
+  color:var(--fg);
+  font:9px "Space Mono",monospace;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
 
 /* PROJECT DETAIL */
-#overlay {
-  position:fixed; inset:0; z-index:50; background:#151512;
+#detail{
+  position:fixed;inset:0;z-index:50;
+  background:#141412;
+  overflow:auto;
   transform:translateY(100%);
   transition:transform .7s cubic-bezier(.77,0,.18,1);
-  overflow:auto;
 }
-#overlay.open { transform:translateY(0); }
-.close {
-  position:fixed; top:20px; right:28px; z-index:3;
-  border:0; background:none; color:var(--fg);
-  font:11px "Space Mono", monospace; cursor:pointer;
+#detail.open{transform:translateY(0)}
+.close{
+  position:fixed;z-index:5;top:20px;right:28px;
+  border:0;background:none;color:var(--fg);
+  font:9px "Space Mono",monospace;
+  cursor:pointer;
 }
-.project-detail {
-  min-height:100vh; padding:110px 28px 80px;
+.detail-inner{padding:100px 28px 90px}
+.detail-head{
+  display:flex;justify-content:space-between;
+  border-bottom:1px solid var(--line);
+  padding-bottom:14px;
+  font:9px "Space Mono",monospace;
+  color:var(--muted);
+  text-transform:uppercase;
 }
-.detail-top {
-  display:flex; justify-content:space-between;
-  border-bottom:1px solid var(--line); padding-bottom:18px;
+.detail-title{
+  margin:65px 0 80px;
+  font-size:clamp(55px,10vw,145px);
+  line-height:.82;
+  letter-spacing:-.07em;
+  font-weight:300;
 }
-.detail-title {
-  font-size:clamp(50px,10vw,145px); font-weight:300;
-  letter-spacing:-.07em; line-height:.82; margin:70px 0;
+.detail-layout{
+  display:grid;
+  grid-template-columns:minmax(0,2fr) minmax(250px,1fr);
+  gap:30px;
 }
-.detail-grid {
-  display:grid; grid-template-columns:2fr 1fr; gap:18px;
+.detail-layout img{width:100%;display:block}
+.detail-copy{
+  color:#aaa79f;
+  font-size:14px;line-height:1.7;
+  max-width:440px;
 }
-.detail-grid img { width:100%; display:block; filter:saturate(.65); }
-.detail-copy {
-  max-width:420px; font-size:14px;
-  line-height:1.7; color:#aaa89f;
+.detail-copy h3{
+  color:var(--fg);
+  font:9px "Space Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin:0 0 10px;
 }
-.detail-copy h3 {
-  color:var(--fg); font-size:11px;
-  text-transform:uppercase; letter-spacing:.1em; font-weight:400;
-}
+.detail-copy p{margin:0 0 38px}
 
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-@media(max-width:700px) {
-  header { padding:18px; }
-  nav { gap:12px; }
-  #projects, #about, .project-detail {
-    padding-left:18px; padding-right:18px;
+/* MOBILE */
+@media(max-width:750px){
+  header{padding:17px 18px}
+  nav{gap:13px}
+  #home{padding:100px 18px 50px}
+  h1{font-size:clamp(58px,17vw,110px)}
+  .ci-mark{width:85vw}
+  .coordinates{left:18px}
+  #projects,#about,.detail-inner{padding-left:18px;padding-right:18px}
+  .project{
+    grid-template-columns:38px minmax(0,1fr) 45px;
+    min-height:90px;
   }
-  .project { grid-template-columns:45px 1fr; }
-  .project-meta { display:none; }
-  #about { grid-template-columns:1fr; gap:60px; }
-  .about-text { margin:0; }
+  .meta{display:none}
+  .year{text-align:right}
+  #about{grid-template-columns:1fr;gap:65px}
+  .detail-layout{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 
-<!-- GROSSES LOGO IM HINTERGRUND -->
-<div class="logo-background">
-  <img src="assets/logo.svg" alt="">
+<!-- DEIN AKTUELLES LOGO -->
+<div class="ci-mark" id="ciMark">
+  <img src="assets/logo.png" alt="">
 </div>
 
 <header>
-  <!-- ===== HIER NAMEN ÄNDERN ===== -->
-  <div class="logo">RL / Architecture</div>
-
+  <a class="brand" href="#home">RL / Architecture</a>
   <nav>
     <a href="#projects">Projects</a>
     <a href="#about">About</a>
@@ -215,227 +287,194 @@ nav a:hover { opacity:1; }
   </nav>
 </header>
 
-<section id="intro">
-  <div class="orbit"></div>
+<main>
 
-  <div class="intro-title" id="hero">
-    <!-- ===== STARTSEITE TEXT HIER ÄNDERN ===== -->
+<section id="home">
+  <div class="hero">
+    <!-- ==============================
+         STARTSEITE — HIER EDITIEREN
+         ============================== -->
+    <p class="kicker">Architecture / Space / Transformation</p>
     <h1>Rene<br>Leonhardt</h1>
-    <p>ARCHITECTURE / SPACE / TRANSFORMATION</p>
+    <p class="hero-sub">Architectural studies, projects &amp; spatial experiments</p>
   </div>
 
-  <div class="coord">47°33′N / 7°35′E — BASEL</div>
+  <div class="hero-rule"></div>
+  <div class="coordinates">47°33′N / 7°35′E — BASEL</div>
 </section>
 
 
 <section id="projects">
-
-  <div class="section-head">
-    <h2>Selected work</h2>
-    <span>01 — 04</span>
+  <div class="section-top">
+    <span>Selected work</span>
+    <span>01 — 05</span>
   </div>
 
-  <!-- =====================================================
-       PROJEKTE
-       Hier kannst du Namen, Ort, Jahr und Beschreibung
-       direkt im HTML ändern.
-       ===================================================== -->
-
+  <!-- ==================================
+       PROJEKT 01
+       ================================== -->
   <article class="project"
     data-title="metamorph CLARA"
     data-location="Basel / 2026"
     data-image="assets/clara.jpg">
-
-    <div class="project-number">01</div>
-
-    <div class="project-name">
-      metamorph CLARA
-    </div>
-
-    <div class="project-meta">
-      BESTAND + AUFSTOCKUNG<br>
-      HOLZ / LEHM / KUPFER
-    </div>
+    <span class="num">01</span>
+    <span class="name">metamorph CLARA</span>
+    <span class="meta">Bestand + Aufstockung<br>Holz / Lehm / Kupfer</span>
+    <span class="year">2026</span>
+    <i class="project-arrow"></i>
   </article>
-
 
   <article class="project"
     data-title="Erlebnisraum"
     data-location="Burgdorf / 2026"
     data-image="assets/erlebnisraum.jpg">
-
-    <div class="project-number">02</div>
-
-    <div class="project-name">
-      Erlebnisraum
-    </div>
-
-    <div class="project-meta">
-      DACHWELT<br>
-      LICHT / FARBE / RAUM
-    </div>
+    <span class="num">02</span>
+    <span class="name">Erlebnisraum</span>
+    <span class="meta">Dachwelt<br>Licht / Farbe / Raum</span>
+    <span class="year">2026</span>
+    <i class="project-arrow"></i>
   </article>
-
 
   <article class="project"
     data-title="Tellplatz"
     data-location="Basel / Study"
     data-image="assets/tellplatz.jpg">
-
-    <div class="project-number">03</div>
-
-    <div class="project-name">
-      Tellplatz
-    </div>
-
-    <div class="project-meta">
-      STÄDTEBAU<br>
-      BESTAND / PLATZ / RHYTHMUS
-    </div>
+    <span class="num">03</span>
+    <span class="name">Tellplatz</span>
+    <span class="meta">Städtebau<br>Bestand / Platz / Rhythmus</span>
+    <span class="year">2025</span>
+    <i class="project-arrow"></i>
   </article>
-
 
   <article class="project"
-    data-title="Archive 2024—26"
-    data-location="Various"
-    data-image="assets/archive.jpg">
-
-    <div class="project-number">04</div>
-
-    <div class="project-name">
-      Archive 2024—26
-    </div>
-
-    <div class="project-meta">
-      MODELS / DRAWINGS<br>
-      FRAGMENTS
-    </div>
+    data-title="Emmenhofareal"
+    data-location="Emmen / Study"
+    data-image="assets/emmenhof.jpg">
+    <span class="num">04</span>
+    <span class="name">Emmenhofareal</span>
+    <span class="meta">Wohnen / Areal<br>Städtebau / Typologie</span>
+    <span class="year">2025</span>
+    <i class="project-arrow"></i>
   </article>
 
+  <article class="project"
+    data-title="Archive"
+    data-location="Basel / 2024—26"
+    data-image="assets/archive.jpg">
+    <span class="num">05</span>
+    <span class="name">Archive</span>
+    <span class="meta">Models / Drawings<br>Fragments</span>
+    <span class="year">2024—26</span>
+    <i class="project-arrow"></i>
+  </article>
 </section>
 
 
 <section id="about">
-
-  <div class="about-big">
-    <!-- ===== ABOUT TITEL ===== -->
+  <div class="about-title">
     Architecture as<br>
     an evolving<br>
     space.
   </div>
 
-  <div class="about-text">
-    <!-- ===== DEIN TEXT ===== -->
+  <div class="about-copy">
+    <!-- ==============================
+         ABOUT — HIER DEINEN TEXT EINSETZEN
+         ============================== -->
     <p>
-      Ein digitales Portfolio zwischen Zeichnung,
-      Modell und gebautem Raum.
+      Hier kommt dein persönlicher Einführungstext hin.
+      Beschreibe deine Haltung, deine Arbeitsweise oder
+      was dich an Architektur interessiert.
     </p>
 
+    <div class="label">Approach</div>
     <p>
-      Diese Website ist bewusst als räumliche Erfahrung
-      gedacht. Projekte werden nicht nur gezeigt,
-      sondern erkundet.
+      Hier können Schwerpunkte, Themen und Interessen
+      stehen. Der Text kann jederzeit direkt in dieser
+      Datei geändert werden.
     </p>
 
-    <p id="contact">
-      BASEL / SWITZERLAND<br>
+    <div class="label" id="contact">Contact</div>
+    <p>
+      Basel / Switzerland<br>
       hello@example.com
     </p>
   </div>
-
 </section>
 
+</main>
 
-<!-- =====================================================
-     PROJEKT-DETAILANSICHT
-     Auch hier kannst du den Text später direkt ändern.
-     ===================================================== -->
 
-<div id="overlay">
-
+<!-- PROJEKTDETAIL -->
+<div id="detail">
   <button class="close">CLOSE ×</button>
 
-  <div class="project-detail">
-
-    <div class="detail-top">
-      <span id="detail-location">BASEL / 2026</span>
-      <span>PROJECT</span>
+  <div class="detail-inner">
+    <div class="detail-head">
+      <span id="detailLocation">Basel / 2026</span>
+      <span>Project</span>
     </div>
 
-    <div class="detail-title" id="detail-title">
-      metamorph CLARA
-    </div>
+    <div class="detail-title" id="detailTitle">metamorph CLARA</div>
 
-    <div class="detail-grid">
-
-      <img id="detail-image" src="" alt="">
+    <div class="detail-layout">
+      <img id="detailImage" src="" alt="">
 
       <div class="detail-copy">
-
+        <!-- ==============================
+             PROJEKTTEXT — HIER EDITIEREN
+             ============================== -->
         <h3>Concept</h3>
         <p>
-          HIER DEINEN PROJEKTTEXT EINFÜGEN.
-          Dieser Text kann für jedes Projekt
-          individuell angepasst werden.
+          HIER DEINEN TEXT ZUM PROJEKT EINFÜGEN.
         </p>
 
-        <h3>Explore</h3>
+        <h3>Spatial strategy</h3>
         <p>
-          Hier können später weitere Informationen,
-          Zeichnungen, Pläne, Schnitte und
-          Materialstudien ergänzt werden.
+          HIER WEITERE INFORMATIONEN, KONZEPT,
+          KONSTRUKTION ODER MATERIAL EINFÜGEN.
         </p>
-
       </div>
-
     </div>
-
   </div>
 </div>
 
 
 <script>
-/* Intro reagiert subtil auf die Maus */
-const hero = document.getElementById('hero');
+/* Subtile Bewegung des Logos statt Kreis */
+const mark = document.getElementById('ciMark');
 
 window.addEventListener('mousemove', e => {
   const x = (e.clientX / innerWidth - .5);
   const y = (e.clientY / innerHeight - .5);
-  hero.style.transform =
-    `translate3d(${x*22}px, ${y*22}px, 0)`;
+  mark.style.transform =
+    `translate(calc(-50% + ${x * 18}px), calc(-50% + ${y * 18}px))`;
 });
 
 
-/* Projekte öffnen die Detailansicht.
-   KEIN Bild-Preview mehr beim Hover. */
-
+/* Projekte öffnen die Detailansicht */
 const projects = document.querySelectorAll('.project');
+const detail = document.getElementById('detail');
 
 projects.forEach(project => {
-
   project.addEventListener('click', () => {
-
-    document.getElementById('detail-title').textContent =
+    document.getElementById('detailTitle').textContent =
       project.dataset.title;
 
-    document.getElementById('detail-location').textContent =
+    document.getElementById('detailLocation').textContent =
       project.dataset.location;
 
-    document.getElementById('detail-image').src =
+    document.getElementById('detailImage').src =
       project.dataset.image;
 
-    document.getElementById('overlay').classList.add('open');
-
+    detail.classList.add('open');
     document.body.style.overflow = 'hidden';
   });
-
 });
 
 
-/* Detailansicht schliessen */
-
 document.querySelector('.close').addEventListener('click', () => {
-  document.getElementById('overlay').classList.remove('open');
+  detail.classList.remove('open');
   document.body.style.overflow = '';
 });
 </script>
