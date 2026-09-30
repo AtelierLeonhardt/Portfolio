@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-6">
-<meta name="viewport" content="width=device-width, initial-scale=0.5">
-<title>René Leonhardt — Architecture</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rene Leonhardt — Architecture</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Mono:wght@400&display=swap');
 
 :root{
-  --bg:#10100f;
-  --fg:#e9e7e1;
-  --muted:#85827a;
-  --line:rgba(233,231,225,.15);
-  --accent:#b88b72;
+  --bg:#f4f3ef;
+  --fg:#171715;
+  --muted:#77756e;
+  --line:rgba(23,23,21,.16);
 }
-
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
@@ -24,23 +22,19 @@ body{
 }
 a{color:inherit;text-decoration:none}
 
-/* =========================
-   LARGE CI MARK
-   ========================= */
+/* ORIGINAL CI MARK — visible in its original colour */
 .ci-mark{
-  position:fixed;
-  z-index:0;
+  position:absolute;
+  z-index:1;
   left:50%;
-  top:50%;
-  width:min(58vw,900px);
+  top:50vh;
+  width:min(54vw,820px);
   transform:translate(-50%,-50%);
-  opacity:.105;
   pointer-events:none;
-  filter:brightness(1.0);
-  transition:transform .2s ease-out;
 }
 .ci-mark img{
   display:block;width:100%;height:auto;
+  opacity:.92;
 }
 
 /* HEADER */
@@ -48,7 +42,7 @@ header{
   position:fixed;z-index:20;top:0;left:0;right:0;
   padding:22px 28px;
   display:flex;justify-content:space-between;align-items:center;
-  mix-blend-mode:difference;
+  background:linear-gradient(var(--bg),rgba(244,243,239,0));
 }
 .brand{
   font-size:12px;letter-spacing:.13em;text-transform:uppercase;
@@ -58,22 +52,21 @@ nav{
   font:10px "Space Mono",monospace;
   text-transform:uppercase;letter-spacing:.08em;
 }
-nav a{opacity:.65;transition:.2s}
+nav a{opacity:.6;transition:.2s}
 nav a:hover{opacity:1}
 
-/* HOME */
+/* HERO: first viewport is logo only */
 #home{
-  min-height:100vh;
+  min-height:170vh;
   position:relative;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:100px 28px 50px;
+  padding:0 28px;
 }
 .hero{
-  position:relative;z-index:2;
-  margin:auto;
-  width:min(1100px,100%);
+  position:absolute;
+  top:calc(100vh + 40px);
+  left:28px;right:28px;
+  z-index:2;
+  padding-bottom:120px;
 }
 .kicker{
   margin:0 0 28px 2px;
@@ -95,15 +88,17 @@ h1{
   letter-spacing:.1em;
   color:var(--muted);
 }
-.hero-rule{
+.scroll-note{
   position:absolute;
-  left:0;right:0;
-  bottom:34px;
-  height:1px;
-  background:var(--line);
+  top:calc(100vh - 55px);
+  left:28px;
+  color:var(--muted);
+  font:9px "Space Mono",monospace;
+  letter-spacing:.1em;
+  text-transform:uppercase;
 }
 .coordinates{
-  position:absolute;bottom:18px;left:28px;
+  position:absolute;top:calc(100vh - 55px);right:28px;
   color:var(--muted);
   font:9px "Space Mono",monospace;
 }
@@ -148,23 +143,15 @@ h1{
   font-weight:300;
   letter-spacing:-.045em;
   transform-origin:left center;
-  transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .35s;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
 }
-.project:hover .name{
-  transform:translateX(18px);
-}
-.project:hover .num{
-  color:var(--fg);
-}
+.project:hover .name{transform:translateX(18px)}
+.project:hover .num{color:var(--fg)}
 .meta{text-transform:uppercase;line-height:1.6}
 .year{text-align:right}
 .project-arrow{
-  position:absolute;
-  right:0;
-  top:50%;
-  width:0;
-  height:1px;
-  background:var(--fg);
+  position:absolute;right:0;top:50%;
+  width:0;height:1px;background:var(--fg);
   transition:width .35s;
 }
 .project:hover .project-arrow{width:28px}
@@ -174,36 +161,21 @@ h1{
   position:relative;z-index:3;
   padding:150px 28px;
   border-top:1px solid var(--line);
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:10vw;
+  display:grid;grid-template-columns:1.2fr .8fr;gap:10vw;
 }
 .about-title{
   font-size:clamp(40px,6vw,88px);
-  line-height:.92;
-  letter-spacing:-.06em;
-  font-weight:300;
+  line-height:.92;letter-spacing:-.06em;font-weight:300;
 }
-.about-copy{
-  max-width:470px;
-  color:#aaa79f;
-  font-size:14px;
-  line-height:1.7;
-}
+.about-copy{max-width:470px;color:#66645e;font-size:14px;line-height:1.7}
 .about-copy .label{
-  margin-top:45px;
-  margin-bottom:8px;
-  color:var(--fg);
-  font:9px "Space Mono",monospace;
-  letter-spacing:.12em;
-  text-transform:uppercase;
+  margin-top:45px;margin-bottom:8px;color:var(--fg);
+  font:9px "Space Mono",monospace;letter-spacing:.12em;text-transform:uppercase;
 }
 
 /* PROJECT DETAIL */
 #detail{
-  position:fixed;inset:0;z-index:50;
-  background:#141412;
-  overflow:auto;
+  position:fixed;inset:0;z-index:50;background:#f4f3ef;overflow:auto;
   transform:translateY(100%);
   transition:transform .7s cubic-bezier(.77,0,.18,1);
 }
@@ -211,60 +183,40 @@ h1{
 .close{
   position:fixed;z-index:5;top:20px;right:28px;
   border:0;background:none;color:var(--fg);
-  font:9px "Space Mono",monospace;
-  cursor:pointer;
+  font:9px "Space Mono",monospace;cursor:pointer;
 }
 .detail-inner{padding:100px 28px 90px}
 .detail-head{
   display:flex;justify-content:space-between;
-  border-bottom:1px solid var(--line);
-  padding-bottom:14px;
-  font:9px "Space Mono",monospace;
-  color:var(--muted);
-  text-transform:uppercase;
+  border-bottom:1px solid var(--line);padding-bottom:14px;
+  font:9px "Space Mono",monospace;color:var(--muted);text-transform:uppercase;
 }
 .detail-title{
   margin:65px 0 80px;
-  font-size:clamp(55px,10vw,145px);
-  line-height:.82;
-  letter-spacing:-.07em;
-  font-weight:300;
+  font-size:clamp(55px,10vw,145px);line-height:.82;
+  letter-spacing:-.07em;font-weight:300;
 }
-.detail-layout{
-  display:grid;
-  grid-template-columns:minmax(0,2fr) minmax(250px,1fr);
-  gap:30px;
-}
+.detail-layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(250px,1fr);gap:30px}
 .detail-layout img{width:100%;display:block}
-.detail-copy{
-  color:#aaa79f;
-  font-size:14px;line-height:1.7;
-  max-width:440px;
-}
+.detail-copy{color:#66645e;font-size:14px;line-height:1.7;max-width:440px}
 .detail-copy h3{
-  color:var(--fg);
-  font:9px "Space Mono",monospace;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  margin:0 0 10px;
+  color:var(--fg);font:9px "Space Mono",monospace;
+  text-transform:uppercase;letter-spacing:.12em;margin:0 0 10px;
 }
 .detail-copy p{margin:0 0 38px}
 
-/* MOBILE */
 @media(max-width:750px){
   header{padding:17px 18px}
   nav{gap:13px}
-  #home{padding:100px 18px 50px}
+  #home{padding:0 18px}
+  .ci-mark{width:82vw}
+  .hero{left:18px;right:18px}
+  .scroll-note{left:18px}
+  .coordinates{right:18px}
   h1{font-size:clamp(58px,17vw,110px)}
-  .ci-mark{width:85vw}
-  .coordinates{left:18px}
   #projects,#about,.detail-inner{padding-left:18px;padding-right:18px}
-  .project{
-    grid-template-columns:38px minmax(0,1fr) 45px;
-    min-height:90px;
-  }
+  .project{grid-template-columns:38px minmax(0,1fr) 45px;min-height:90px}
   .meta{display:none}
-  .year{text-align:right}
   #about{grid-template-columns:1fr;gap:65px}
   .detail-layout{grid-template-columns:1fr}
 }
@@ -273,9 +225,8 @@ h1{
 
 <body>
 
-<!-- DEIN AKTUELLES LOGO -->
 <div class="ci-mark" id="ciMark">
-  <img src="assets/logo.png" alt="">
+  <img src="assets/logo.png" alt="Rene Leonhardt Logo">
 </div>
 
 <header>
@@ -290,194 +241,91 @@ h1{
 <main>
 
 <section id="home">
+  <div class="scroll-note">Scroll to enter</div>
+  <div class="coordinates">47°33′N / 7°35′E — BASEL</div>
+
   <div class="hero">
-    <!-- ==============================
-         STARTSEITE — HIER EDITIEREN
-         ============================== -->
+    <!-- STARTSEITE — HIER EDITIEREN -->
     <p class="kicker">Architecture / Space / Transformation</p>
     <h1>Rene<br>Leonhardt</h1>
     <p class="hero-sub">Architectural studies, projects &amp; spatial experiments</p>
   </div>
-
-  <div class="hero-rule"></div>
-  <div class="coordinates">47°33′N / 7°35′E — BASEL</div>
 </section>
-
 
 <section id="projects">
   <div class="section-top">
-    <span>Selected work</span>
-    <span>01 — 05</span>
+    <span>Selected work</span><span>01 — 05</span>
   </div>
 
-  <!-- ==================================
-       PROJEKT 01
-       ================================== -->
-  <article class="project"
-    data-title="metamorph CLARA"
-    data-location="Basel / 2026"
-    data-image="assets/clara.jpg">
-    <span class="num">01</span>
-    <span class="name">metamorph CLARA</span>
-    <span class="meta">Bestand + Aufstockung<br>Holz / Lehm / Kupfer</span>
-    <span class="year">2026</span>
-    <i class="project-arrow"></i>
+  <article class="project" data-title="metamorph CLARA" data-location="Basel / 2026" data-image="assets/clara.jpg">
+    <span class="num">01</span><span class="name">metamorph CLARA</span>
+    <span class="meta">Bestand + Aufstockung<br>Holz / Lehm / Kupfer</span><span class="year">2026</span><i class="project-arrow"></i>
   </article>
-
-  <article class="project"
-    data-title="Erlebnisraum"
-    data-location="Burgdorf / 2026"
-    data-image="assets/erlebnisraum.jpg">
-    <span class="num">02</span>
-    <span class="name">Erlebnisraum</span>
-    <span class="meta">Dachwelt<br>Licht / Farbe / Raum</span>
-    <span class="year">2026</span>
-    <i class="project-arrow"></i>
+  <article class="project" data-title="Erlebnisraum" data-location="Burgdorf / 2026" data-image="assets/erlebnisraum.jpg">
+    <span class="num">02</span><span class="name">Erlebnisraum</span>
+    <span class="meta">Dachwelt<br>Licht / Farbe / Raum</span><span class="year">2026</span><i class="project-arrow"></i>
   </article>
-
-  <article class="project"
-    data-title="Tellplatz"
-    data-location="Basel / Study"
-    data-image="assets/tellplatz.jpg">
-    <span class="num">03</span>
-    <span class="name">Tellplatz</span>
-    <span class="meta">Städtebau<br>Bestand / Platz / Rhythmus</span>
-    <span class="year">2025</span>
-    <i class="project-arrow"></i>
+  <article class="project" data-title="Tellplatz" data-location="Basel / Study" data-image="assets/tellplatz.jpg">
+    <span class="num">03</span><span class="name">Tellplatz</span>
+    <span class="meta">Städtebau<br>Bestand / Platz / Rhythmus</span><span class="year">2025</span><i class="project-arrow"></i>
   </article>
-
-  <article class="project"
-    data-title="Emmenhofareal"
-    data-location="Emmen / Study"
-    data-image="assets/emmenhof.jpg">
-    <span class="num">04</span>
-    <span class="name">Emmenhofareal</span>
-    <span class="meta">Wohnen / Areal<br>Städtebau / Typologie</span>
-    <span class="year">2025</span>
-    <i class="project-arrow"></i>
+  <article class="project" data-title="Emmenhofareal" data-location="Emmen / Study" data-image="assets/emmenhof.jpg">
+    <span class="num">04</span><span class="name">Emmenhofareal</span>
+    <span class="meta">Wohnen / Areal<br>Städtebau / Typologie</span><span class="year">2025</span><i class="project-arrow"></i>
   </article>
-
-  <article class="project"
-    data-title="Archive"
-    data-location="Basel / 2024—26"
-    data-image="assets/archive.jpg">
-    <span class="num">05</span>
-    <span class="name">Archive</span>
-    <span class="meta">Models / Drawings<br>Fragments</span>
-    <span class="year">2024—26</span>
-    <i class="project-arrow"></i>
+  <article class="project" data-title="Archive" data-location="Basel / 2024—26" data-image="assets/archive.jpg">
+    <span class="num">05</span><span class="name">Archive</span>
+    <span class="meta">Models / Drawings<br>Fragments</span><span class="year">2024—26</span><i class="project-arrow"></i>
   </article>
 </section>
 
-
 <section id="about">
-  <div class="about-title">
-    Architecture as<br>
-    an evolving<br>
-    space.
-  </div>
-
+  <div class="about-title">Architecture as<br>an evolving<br>space.</div>
   <div class="about-copy">
-    <!-- ==============================
-         ABOUT — HIER DEINEN TEXT EINSETZEN
-         ============================== -->
-    <p>
-      Hier kommt dein persönlicher Einführungstext hin.
-      Beschreibe deine Haltung, deine Arbeitsweise oder
-      was dich an Architektur interessiert.
-    </p>
-
+    <p>Hier kommt dein persönlicher Einführungstext hin. Beschreibe deine Haltung, deine Arbeitsweise oder was dich an Architektur interessiert.</p>
     <div class="label">Approach</div>
-    <p>
-      Hier können Schwerpunkte, Themen und Interessen
-      stehen. Der Text kann jederzeit direkt in dieser
-      Datei geändert werden.
-    </p>
-
+    <p>Hier können Schwerpunkte, Themen und Interessen stehen.</p>
     <div class="label" id="contact">Contact</div>
-    <p>
-      Basel / Switzerland<br>
-      hello@example.com
-    </p>
+    <p>Basel / Switzerland<br>hello@example.com</p>
   </div>
 </section>
 
 </main>
 
-
-<!-- PROJEKTDETAIL -->
 <div id="detail">
   <button class="close">CLOSE ×</button>
-
   <div class="detail-inner">
-    <div class="detail-head">
-      <span id="detailLocation">Basel / 2026</span>
-      <span>Project</span>
-    </div>
-
+    <div class="detail-head"><span id="detailLocation">Basel / 2026</span><span>Project</span></div>
     <div class="detail-title" id="detailTitle">metamorph CLARA</div>
-
     <div class="detail-layout">
       <img id="detailImage" src="" alt="">
-
       <div class="detail-copy">
-        <!-- ==============================
-             PROJEKTTEXT — HIER EDITIEREN
-             ============================== -->
         <h3>Concept</h3>
-        <p>
-          HIER DEINEN TEXT ZUM PROJEKT EINFÜGEN.
-        </p>
-
+        <p>HIER DEINEN TEXT ZUM PROJEKT EINFÜGEN.</p>
         <h3>Spatial strategy</h3>
-        <p>
-          HIER WEITERE INFORMATIONEN, KONZEPT,
-          KONSTRUKTION ODER MATERIAL EINFÜGEN.
-        </p>
+        <p>HIER WEITERE INFORMATIONEN, KONZEPT, KONSTRUKTION ODER MATERIAL EINFÜGEN.</p>
       </div>
     </div>
   </div>
 </div>
 
-
 <script>
-/* Subtile Bewegung des Logos statt Kreis */
-const mark = document.getElementById('ciMark');
-
-window.addEventListener('mousemove', e => {
-  const x = (e.clientX / innerWidth - .5);
-  const y = (e.clientY / innerHeight - .5);
-  mark.style.transform =
-    `translate(calc(-50% + ${x * 18}px), calc(-50% + ${y * 18}px))`;
-});
-
-
-/* Projekte öffnen die Detailansicht */
 const projects = document.querySelectorAll('.project');
 const detail = document.getElementById('detail');
 
 projects.forEach(project => {
   project.addEventListener('click', () => {
-    document.getElementById('detailTitle').textContent =
-      project.dataset.title;
-
-    document.getElementById('detailLocation').textContent =
-      project.dataset.location;
-
-    document.getElementById('detailImage').src =
-      project.dataset.image;
-
+    document.getElementById('detailTitle').textContent = project.dataset.title;
+    document.getElementById('detailLocation').textContent = project.dataset.location;
+    document.getElementById('detailImage').src = project.dataset.image;
     detail.classList.add('open');
     document.body.style.overflow = 'hidden';
   });
 });
-
-
 document.querySelector('.close').addEventListener('click', () => {
   detail.classList.remove('open');
   document.body.style.overflow = '';
 });
 </script>
-
 </body>
 </html>
